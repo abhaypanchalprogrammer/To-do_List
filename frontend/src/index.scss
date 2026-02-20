@@ -1,9 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
+
+:root {
+  --primary: #6c63ff;
+  --primary-dark: #574fd6;
+  --primary-light: rgba(108, 99, 255, 0.12);
+  --danger: #e74c3c;
+  --danger-light: rgba(231, 76, 60, 0.12);
+  --success: #2ecc71;
+  --warning: #f39c12;
+  --bg: #0f0f1a;
+  --bg-card: #1a1a2e;
+  --bg-surface: #16213e;
+  --text-primary: #e8e8f0;
+  --text-secondary: #9090b0;
+  --border: rgba(108, 99, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: all 0.25s ease;
+}
+
 body {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(108, 99, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(108, 99, 255, 0.06) 0%, transparent 50%);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -27,7 +27,12 @@ app.delete("/todo/:id", async (req, res) => {
 });
 app.put("/todo/:id", async (req, res) => {
   const id = req.params.id;
-  const update = await todoModel.findByIdAndUpdate(id, req.body, { new: true });
+  const { title, task, status } = req.body;
+  const update = await todoModel.findByIdAndUpdate(
+    id,
+    { title, task, status },
+    { new: true },
+  );
   res.status(200).json({
     message: "Task Updated",
     update,

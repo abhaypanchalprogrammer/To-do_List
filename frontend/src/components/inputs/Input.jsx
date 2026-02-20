@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Input.scss";
 import axios from "axios";
 
-const Input = ({ tasks, setTasks }) => {
+const Input = ({ tasks, setTasks, editingTask, setEditingTask, onUpdate }) => {
   const [formData, setFormData] = useState({
     title: "",
     task: "",
   });
+
+  // Pre-fill form when an editing task is selected
+  useEffect(() => {
+    if (editingTask) {
+      setFormData({
+        title: editingTask.title,
+        task: editingTask.task,
+      });
+    } else {
+      setFormData({ title: "", task: "" });
+    }
+  }, [editingTask]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,13 +28,19 @@ const Input = ({ tasks, setTasks }) => {
       return;
     }
 
-    try {
-      const res = await axios.post("http://localhost:5000/todo", formData);
-      setTasks([...tasks, res.data.todo]);
-      setFormData({ title: "", task: "" });
-    } catch (err) {
-      console.error("Error adding task:", err);
-      alert("Failed to add task. Try again.");
+    if (editingTask) {
+      // Update existing task
+      await onUpdate(editingTask._id, formData);
+    } else {
+      // Create new task
+      try {
+        const res = await axios.post("http://localhost:5000/todo", formData);
+        setTasks([...tasks, res.data.todo]);
+        setFormData({ title: "", task: "" });
+      } catch (err) {
+        console.error("Error adding task:", err);
+        alert("Failed to add task. Try again.");
+      }
     }
   };
 
@@ -42,8 +60,13 @@ const Input = ({ tasks, setTasks }) => {
           onChange={(e) => setFormData({ ...formData, task: e.target.value })}
         />
         <button type="submit" disabled={!formData.title || !formData.task}>
-          Add Task
+          {editingTask ? "Update Task" : "Add Task"}
         </button>
+        {editingTask && (
+          <button type="button" onClick={() => setEditingTask(null)}>
+            Cancel
+          </button>
+        )}
       </form>
     </div>
   );

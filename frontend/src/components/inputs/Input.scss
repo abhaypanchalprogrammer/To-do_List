@@ -1,49 +1,138 @@
 .form-container {
-  height: 100px;
   width: 100%;
-}
-form {
-  width: 100%;
-  height: 100%;
+  padding: 40px 24px 24px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 100px;
-  input {
-    height: 30px;
-    width: 500px;
-    padding: 5px 20px;
-    border-radius: 15px;
-    border: 2px solid gray;
-    outline: none;
-    transition:
-      border 0.3s,
-      background 0.3s,
-      backdrop-filter 0.3s;
 
-    background: rgba(136, 136, 136, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+  &::before {
+    content: '📝 My To-Do List';
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: 28px;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-    &:focus {
-      border-color: rgb(0, 17, 255);
+  form {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+
+    input {
+      flex: 1 1 220px;
+      height: 46px;
+      padding: 0 18px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      outline: none;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: var(--transition);
+
+      &::placeholder {
+        color: var(--text-secondary);
+      }
+
+      &:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        background: #1c1c30;
+      }
+    }
+
+    button[type='submit'] {
+      height: 46px;
+      padding: 0 28px;
+      border-radius: var(--radius-sm);
+      border: none;
+      outline: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.55);
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0) scale(0.97);
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+    }
+
+    button[type='button'] {
+      height: 46px;
+      padding: 0 22px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      outline: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+
+      &:hover {
+        border-color: var(--danger);
+        color: var(--danger);
+        background: var(--danger-light);
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
     }
   }
-  button {
-    padding: 10px 40px;
-    font-size: large;
-    border-radius: 15px;
-    border: 2px solid gray;
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    background: rgba(136, 136, 136, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+}
 
-    &:active {
-      transform: scale(0.95);
+/* Responsive */
+@media (max-width: 640px) {
+  .form-container {
+    padding: 24px 14px 16px;
+
+    form {
+      padding: 18px 16px;
+      gap: 10px;
+
+      input {
+        flex: 1 1 100%;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   }
 }
